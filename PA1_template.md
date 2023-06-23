@@ -1,11 +1,11 @@
----
-title: "Reproducible research Peer graded assignment 1"
-output: html_document
----
 
-```{r setup, include=TRUE}
-knitr::opts_chunk$set(echo = TRUE)
+title: “Reproducible research Peer graded assignment 1” output:
+html_document: default github_document: default
 
+------------------------------------------------------------------------
+
+``` r
+knitr::opts_chunk$set(echo = TRUE) 
 
 
 ## Loading and preprocessing the data
@@ -36,15 +36,27 @@ p <- ggplot(daily_steps, aes(steps)) +
   ggtitle("Total number of steps taken each day")
 
 print(p)
+```
 
+![](PA1_template_files/figure-gfm/setup-1.png)<!-- -->
+
+``` r
 # Calculate and report the mean and median of the total number of steps taken per day
 mean_steps <- mean(daily_steps$steps)
 median_steps <- median(daily_steps$steps)
 
 mean_steps
+```
+
+    ## [1] 9354.23
+
+``` r
 median_steps
+```
 
+    ## [1] 10395
 
+``` r
 ## What is the average daily activity pattern?
 
 # Calculate the average number of steps taken in each 5-minute interval across all days
@@ -60,12 +72,19 @@ p <- ggplot(interval_steps, aes(interval, steps)) +
   ggtitle("Average daily activity pattern")
   
 print(p)  
+```
 
+![](PA1_template_files/figure-gfm/setup-2.png)<!-- -->
+
+``` r
 # Identify the 5-minute interval with the maximum number of steps on average
 max_interval <- interval_steps$interval[which.max(interval_steps$steps)]
 max_interval
+```
 
+    ## [1] 835
 
+``` r
 ## Imputing missing values
 
 # Calculate the total number of missing values in the dataset
@@ -87,15 +106,27 @@ p <- ggplot(daily_steps_imputed, aes(steps)) +
   ggtitle("Total number of steps taken each day (imputed data)")
 
 print(p)
+```
 
+![](PA1_template_files/figure-gfm/setup-3.png)<!-- -->
+
+``` r
 # Calculate and report the mean and median of the total number of steps taken per day with the imputed data
 mean_steps_imputed <- mean(daily_steps_imputed$steps)
 median_steps_imputed <- median(daily_steps_imputed$steps)
 
 mean_steps_imputed
+```
+
+    ## [1] 10766.19
+
+``` r
 median_steps_imputed
+```
 
+    ## [1] 10766.19
 
+``` r
 ## Are there differences in activity patterns between weekdays and weekends?
 
 # Create a new factor variable indicating whether a given date is a weekday or weekend day
@@ -106,7 +137,11 @@ activity_imputed$day_type <- as.factor(activity_imputed$day_type)
 interval_steps_imputed <- activity_imputed %>% 
   group_by(interval, day_type) %>% 
   summarise(steps = mean(steps))
+```
 
+    ## `summarise()` has grouped output by 'interval'. You can override using the `.groups` argument.
+
+``` r
 # Make a panel plot comparing the average number of steps taken in each 5-minute interval on weekdays and weekends
 p <- ggplot(interval_steps_imputed, aes(interval, steps)) +
   geom_line(color = "purple") +
@@ -116,3 +151,6 @@ p <- ggplot(interval_steps_imputed, aes(interval, steps)) +
   ggtitle("Average number of steps taken in each 5-minute interval (imputed data)")
 
 print(p)
+```
+
+![](PA1_template_files/figure-gfm/setup-4.png)<!-- -->
